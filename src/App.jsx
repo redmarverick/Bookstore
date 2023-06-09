@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import BookList from './components/BooksList';
+import Categories from './components/categories';
 
 const App = () => {
   const [books, setBooks] = useState([]);
@@ -22,8 +23,8 @@ const App = () => {
     <Router>
       <Navigation />
       <Routes>
-        <Route path="/" />
-        <Route path="/categories" element={<BookList books={books} onDelete={handleDeleteBook} onAddBook={handleAddBook} />} />
+        <Route path="/" element={<BookList books={books} onDelete={handleDeleteBook} onAddBook={handleAddBook} />} />
+        <Route path="/categories" element={<Categories />} />
       </Routes>
     </Router>
   );
