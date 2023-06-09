@@ -9,9 +9,6 @@ const Navigation = () => (
       <li>
         <NavLink to="/categories" activeclassname="active">Categories</NavLink>
       </li>
-      <li>
-        <NavLink to="/add-book" activeclassname="active">Add Book</NavLink>
-      </li>
     </ul>
   </nav>
 );

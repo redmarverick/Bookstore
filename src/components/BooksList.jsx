@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import Book from './Books';
+import BookForm from './BookForm';
 
-const BooksList = ({ books, onDelete }) => {
+const BooksList = ({ books, onDelete, onAddBook }) => {
   const dummyBook = {
     id: 0,
     title: 'Dummy Book',
@@ -22,6 +23,9 @@ const BooksList = ({ books, onDelete }) => {
           onDelete={onDelete}
         />
       ))}
+      <BookForm onAddBook={onAddBook} />
+      {' '}
+      {/* Include the onAddBook prop */}
     </div>
   );
 };
@@ -34,6 +38,7 @@ BooksList.propTypes = {
     }),
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
+  onAddBook: PropTypes.func.isRequired, // Add the onAddBook prop type
 };
 
 export default BooksList;

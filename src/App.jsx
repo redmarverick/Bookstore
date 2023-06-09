@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import BookList from './components/BooksList';
-import BookForm from './components/BookForm';
 
 const App = () => {
   const [books, setBooks] = useState([]);
@@ -23,9 +22,8 @@ const App = () => {
     <Router>
       <Navigation />
       <Routes>
-        <Route path="/" element={<BookList books={books} onDelete={handleDeleteBook} />} />
-        <Route path="/categories" element={<BookList books={books} onDelete={handleDeleteBook} />} />
-        <Route path="/add-book" element={<BookForm onAddBook={handleAddBook} />} />
+        <Route path="/" />
+        <Route path="/categories" element={<BookList books={books} onDelete={handleDeleteBook} onAddBook={handleAddBook} />} />
       </Routes>
     </Router>
   );
