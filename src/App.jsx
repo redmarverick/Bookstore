@@ -14,7 +14,6 @@ const App = () => {
     };
     setBooks([...books, newBook]);
   };
-  
 
   const handleDeleteBook = (id) => {
     setBooks(books.filter((book) => book.id !== id));

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 const Book = ({ id, title, onDelete }) => {
-  console.log(title);
   const handleDelete = () => {
     onDelete(id);
   };
