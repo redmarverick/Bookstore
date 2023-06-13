@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import Book from './Books';
@@ -20,10 +20,6 @@ const BooksList = () => {
     };
     dispatch(addBook(newBook));
   };
-
-  useEffect(() => {
-    console.log('Books:', books);
-  }, [books]);
 
   return (
     <div>
