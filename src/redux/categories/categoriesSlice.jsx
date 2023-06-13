@@ -1,33 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  books: [],
-};
-
-const booksSlice = createSlice({
-  name: 'books',
-  initialState,
+const categoriesSlice = createSlice({
+  name: 'categories',
+  initialState: {
+    categories: [],
+  },
   reducers: {
-    addBook: (state, action) => {
-      const newBook = {
-        id: new Date().getTime(),
-        title: action.payload,
-      };
-      return {
-        ...state,
-        books: [...state.books, newBook],
-      };
-    },
-    removeBook: (state, action) => {
-      const bookId = action.payload;
-      return {
-        ...state,
-        books: state.books.filter((book) => book.id !== bookId),
-      };
-    },
+    checkStatus: (state) => ({
+      ...state,
+      categories: ['Under construction'],
+    }),
   },
 });
 
-export const { addBook, removeBook } = booksSlice.actions;
-
-export default booksSlice.reducer;
+export const { checkStatus } = categoriesSlice.actions;
+export default categoriesSlice.reducer;
+export const categoriesSelector = (state) => state.categories.categories;
