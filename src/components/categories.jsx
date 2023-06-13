@@ -13,10 +13,12 @@ const Categories = () => {
   return (
     <div>
       <p>
-        Status: {categories.length > 0 ? categories[0] : 'press the button to get the status'}
+        Status:
+        {' '}
+        {categories.length > 0 ? categories[0] : 'press the button to get the status'}
       </p>
       <button type="button" onClick={handleStatusClick}>
-      Check Status
+        Check Status
       </button>
     </div>
   );
