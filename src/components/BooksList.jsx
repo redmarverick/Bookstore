@@ -1,8 +1,12 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Book from './Books';
 import BookForm from './BookForm';
+import { selectAllBooks } from '../redux/books/booksSlice';
 
-const BooksList = ({ books, onDelete, onAddBook }) => {
+const BooksList = ({ onDelete, onAddBook }) => {
+  const books = useSelector(selectAllBooks);
   const dummyBook = {
     id: 0,
     title: 'Dummy Book',
@@ -24,21 +28,13 @@ const BooksList = ({ books, onDelete, onAddBook }) => {
         />
       ))}
       <BookForm onAddBook={onAddBook} />
-      {' '}
-      {/* Include the onAddBook prop */}
     </div>
   );
 };
 
 BooksList.propTypes = {
-  books: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
   onDelete: PropTypes.func.isRequired,
-  onAddBook: PropTypes.func.isRequired, // Add the onAddBook prop type
+  onAddBook: PropTypes.func.isRequired,
 };
 
 export default BooksList;
