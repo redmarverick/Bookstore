@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { addBook } from '../redux/books/booksSlice';
 
-const BookForm = ({ onAddBook }) => {
+const BookForm = () => {
   const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [category, setCategory] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title.trim() !== '') {
-      onAddBook(title.trim()); // Pass the title string instead of the newBook object
+    if (title.trim() !== '' && author.trim() !== '' && category.trim() !== '') {
+      dispatch(addBook({ title: title.trim(), author: author.trim(), category: category.trim() }));
       setTitle('');
+      setAuthor('');
+      setCategory('');
     }
   };
 
@@ -22,14 +28,22 @@ const BookForm = ({ onAddBook }) => {
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter book title"
         />
+        <input
+          type="text"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+          placeholder="Enter book author"
+        />
+        <input
+          type="text"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          placeholder="Enter book category"
+        />
         <button type="submit">Add</button>
       </form>
     </div>
   );
-};
-
-BookForm.propTypes = {
-  onAddBook: PropTypes.func.isRequired,
 };
 
 export default BookForm;

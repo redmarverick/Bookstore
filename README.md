@@ -100,8 +100,8 @@ To run the project, execute the following command:
 
 ```sh
   npm install webpack
-  npm run production
-  npm start
+  npm run build
+  npm run dev
 ```
 
 ### Run tests

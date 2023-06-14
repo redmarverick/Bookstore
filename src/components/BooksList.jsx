@@ -1,44 +1,46 @@
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
 import Book from './Books';
 import BookForm from './BookForm';
+import { selectAllBooks, addBook, deleteBook } from '../redux/books/booksSlice';
 
-const BooksList = ({ books, onDelete, onAddBook }) => {
-  const dummyBook = {
-    id: 0,
-    title: 'Dummy Book',
+const BooksList = () => {
+  const books = useSelector(selectAllBooks);
+  const dispatch = useDispatch();
+
+  const handleDeleteBook = (id) => {
+    dispatch(deleteBook(id));
   };
+
+  const handleAddBook = (book) => {
+    const newBook = {
+      id: uuid(),
+      ...book,
+    };
+    dispatch(addBook(newBook));
+  };
+
+  useEffect(() => {
+    console.log('Books:', books);
+  }, [books]);
 
   return (
     <div>
       <h1>Book List</h1>
-      {/* Render the dummy book */}
-      <Book id={dummyBook.id} title={dummyBook.title} onDelete={onDelete} />
-
-      {/* Render the actual books */}
       {books.map((book) => (
         <Book
           key={book.id}
           id={book.id}
           title={book.title}
-          onDelete={onDelete}
+          author={book.author}
+          category={book.category}
+          onDelete={handleDeleteBook}
         />
       ))}
-      <BookForm onAddBook={onAddBook} />
-      {' '}
-      {/* Include the onAddBook prop */}
+      <BookForm onAddBook={handleAddBook} />
     </div>
   );
-};
-
-BooksList.propTypes = {
-  books: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onAddBook: PropTypes.func.isRequired, // Add the onAddBook prop type
 };
 
 export default BooksList;
