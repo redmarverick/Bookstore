@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { checkStatus, categoriesSelector } from '../redux/categories/categoriesSlice';
+import { fetchCategories, categoriesSelector, addBook } from '../api/bookstoreApi';
 
 const Categories = () => {
   const categories = useSelector(categoriesSelector);
   const dispatch = useDispatch();
+  const [appId, setAppId] = useState('');
 
-  const handleStatusClick = () => {
-    dispatch(checkStatus());
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  const handleCreateApp = async () => {
+    try {
+      const response = await createApp();
+      setAppId(response.appId);
+      console.log(response);
+    } catch (error) {
+      console.error('Error creating app:', error);
+    }
   };
 
   return (
@@ -17,8 +28,11 @@ const Categories = () => {
         {' '}
         {categories.length > 0 ? categories[0] : 'press the button to get the status'}
       </p>
-      <button type="button" onClick={handleStatusClick}>
-        Check Status
+      <button type="button" onClick={handleCreateApp}>
+        Create App
+      </button>
+      <button type="button" onClick={handleAddBook}>
+        Add Book
       </button>
     </div>
   );

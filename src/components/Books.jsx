@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { deleteBookAsync } from '../api/bookstoreApi';
 
 const Book = ({
-  id, title, author, category, onDelete,
+  id, title, author, category,
 }) => {
+  const dispatch = useDispatch();
+
   const handleDelete = () => {
-    onDelete(id);
+    dispatch(deleteBookAsync(id));
   };
 
   return (
@@ -31,7 +35,6 @@ Book.propTypes = {
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
 
 export default Book;
