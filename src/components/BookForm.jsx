@@ -27,26 +27,26 @@ const BookForm = () => {
 
   return (
     <div className="mx-16 mb-16">
-      <h2 className="text-xl font-bold mb-3">ADD NEW BOOK</h2>
+      <h2 className="robotoslab text-xl font-bold mb-3 font-family: Montserrat;">ADD NEW BOOK</h2>
       <form onSubmit={handleSubmit} className="w-full flex justify-between items-center">
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Book title"
-          className="w-1/3 h-12 mr-4 pl-3 pr-14 rounded-md border border-gray-300 bg-white"
+          className="robotoslab w-1/3 h-12 mr-4 pl-3 pr-14 rounded-md border border-gray-300 bg-white"
         />
         <input
           type="text"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="Author"
-          className="w-1/3 h-12 mr-4 pl-3 pr-14 rounded-md border border-gray-300 bg-white"
+          className="robotoslab w-1/3 h-12 mr-4 pl-3 pr-14 rounded-md border border-gray-300 bg-white"
         />
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="w-1/4 h-12 mr-4 pl-2 pr-3 rounded-md border border-gray-300 bg-white"
+          className="robotoslab w-1/4 h-12 mr-4 pl-2 pr-3 rounded-md border border-gray-300 bg-white"
         >
           <option value="" disabled defaultValue>Category</option>
           <option value="Adventure">Adventure</option>
@@ -77,7 +77,7 @@ const BookForm = () => {
         </select>
         <button
           type="submit"
-          className="w-56 h-12 px-4 py-2 rounded-md bg-blue-400 text-white font-light text-sm text-center"
+          className="w-56 robotoslab h-12 px-4 py-2 rounded-md bg-blue-400 text-white font-light text-sm text-center"
         >
           ADD BOOK
         </button>

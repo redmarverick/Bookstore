@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom';
 const Navigation = () => (
   <header className="bg-white py-4 px-8 flex items-center">
     <div className="flex items-center">
-      <h1 className="text-3xl font-bold text-blue-500">Bookstore CMS</h1>
+      <h1 className="text-3xl montserrat font-bold text-blue-500">Bookstore CMS</h1>
       <nav className="ml-6">
-        <NavLink exact to="/" activeClassName="active" className="text-black text-sm font-medium tracking-wide uppercase">
+        <NavLink exact to="/" activeClassName="active" className="montserrat text-black text-sm font-medium tracking-wide uppercase">
           Home
         </NavLink>
-        <NavLink to="/categories" activeClassName="active" className="text-black text-sm font-medium tracking-wide uppercase ml-4">
+        <NavLink to="/categories" activeClassName="active" className="montserrat text-black text-sm font-medium tracking-wide uppercase ml-4">
           Categories
         </NavLink>
       </nav>
