@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 
 const baseURL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi';
 const appId = 'F2U9a7NfqO22Whu7pCvy';
@@ -10,13 +9,11 @@ export const deleteBookAsync = createAsyncThunk(
   async (bookId) => {
     try {
       const response = await axios.delete(`${baseURL}/apps/${appId}/books/${bookId}`);
-      console.log(response);
       return bookId;
     } catch (error) {
-      console.error('Error deleting book:', error);
       throw error;
     }
-  }
+  },
 );
 
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
@@ -25,9 +22,7 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
     const booksData = response.data;
 
     const booksWithIds = Object.entries(booksData)
-      .flatMap(([item_id, books]) =>
-        books.map((book) => ({ ...book, item_id }))
-      );
+      .flatMap(([itemId, books]) => books.map((book) => ({ ...book, itemId })));
 
     return booksWithIds;
   } catch (error) {
@@ -37,12 +32,14 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
 });
 
 export const addBookAsync = createAsyncThunk('books/addBook', async (book) => {
-  const { item_id, title, author, category } = book;
+  const {
+    item_id, title, author, category,
+  } = book;
   const payload = {
     item_id,
     title,
     author,
-    category
+    category,
   };
   try {
     const response = await axios.post(`${baseURL}/apps/${appId}/books`, payload);
@@ -59,12 +56,8 @@ const booksSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchBooks.fulfilled, (state, action) => {
-      return action.payload;
-    });
-    builder.addCase(addBookAsync.fulfilled, (state, action) => {
-      return [...state, action.payload];
-    });
+    builder.addCase(fetchBooks.fulfilled, (state, action) => action.payload);
+    builder.addCase(addBookAsync.fulfilled, (state, action) => [...state, action.payload]);
     builder.addCase(deleteBookAsync.fulfilled, (state, action) => {
       const bookId = action.payload;
       return state.filter((book) => book.item_id !== bookId);

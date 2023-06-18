@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import Navigation from './components/Navigation';
 import BookList from './components/BooksList';
 import Categories from './components/categories';
 
 const App = () => {
   const [books, setBooks] = useState([]);
-  const status = useSelector((state) => state.Categories);
 
   const handleAddBook = (title) => {
     const newBook = {

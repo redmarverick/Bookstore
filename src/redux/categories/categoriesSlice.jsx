@@ -1,10 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getCategories } from '../../api/bookstoreApi';
-
-export const fetchCategories = createAsyncThunk('categories/fetchCategories', async () => {
-  const categories = await getCategories();
-  return categories;
-});
+import { createSlice } from '@reduxjs/toolkit';
 
 const categoriesSlice = createSlice({
   name: 'categories',
@@ -12,17 +6,10 @@ const categoriesSlice = createSlice({
     categories: [],
   },
   reducers: {
-    checkStatus: (state) => {
-      return {
-        ...state,
-        categories: ['Under construction'],
-      };
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(fetchCategories.fulfilled, (state, action) => {
-      state.categories = action.payload;
-    });
+    checkStatus: (state) => ({
+      ...state,
+      categories: ['Under construction'],
+    }),
   },
 });
 
