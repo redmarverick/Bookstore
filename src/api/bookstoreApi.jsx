@@ -20,24 +20,6 @@ export const getAllBooks = async (appId) => {
   }
 };
 
-// Add a new book for a given app
-export const addBook = async (appId, book) => {
-  const { item_id, title, author, category } = book; // Destructure the required items from the book object
-  const payload = {
-    item_id,
-    title,
-    author,
-    category
-  };
-  try {
-    const response = await axios.post(`${baseURL}/apps/${appId}/books`, payload);
-    return response.data;
-  } catch (error) {
-    console.error('Error adding book:', error);
-    throw error;
-  }
-};
-
 // Delete a book from a given app
 export const deleteBook = async (appId, itemId) => {
   try {

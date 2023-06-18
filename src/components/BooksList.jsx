@@ -23,19 +23,20 @@ const BooksList = () => {
   return (
     <div>
       <h1>Book List</h1>
-      {books.map((book, index) => (
-        <div key={index} className={book.id}>
+      {books.map((book) => (
+        <div key={book.item_id}>
           <h3>{book.title}</h3>
           <p>Author: {book.author}</p>
           <p>Category: {book.category}</p>
-          <button type="button" onClick={() => handleDeleteBook(book.id)}>
+          <p>ID: {book.item_id}</p>
+          <button type="button" onClick={() => handleDeleteBook(book.item_id)}>
             Delete
           </button>
         </div>
       ))}
-      <BookForm onAddBook={handleAddBook}/>
+      <BookForm onAddBook={handleAddBook} />
     </div>
-  );  
+  );
 };
 
 export default BooksList;

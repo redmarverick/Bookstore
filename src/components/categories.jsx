@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategories, categoriesSelector, addBook } from '../api/bookstoreApi';
+import { fetchCategories, categoriesSelector} from '../api/bookstoreApi';
 
 const Categories = () => {
   const categories = useSelector(categoriesSelector);
@@ -30,9 +30,6 @@ const Categories = () => {
       </p>
       <button type="button" onClick={handleCreateApp}>
         Create App
-      </button>
-      <button type="button" onClick={handleAddBook}>
-        Add Book
       </button>
     </div>
   );

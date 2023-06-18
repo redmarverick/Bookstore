@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 const baseURL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi';
 const appId = 'F2U9a7NfqO22Whu7pCvy';
@@ -8,7 +9,8 @@ export const deleteBookAsync = createAsyncThunk(
   'books/deleteBook',
   async (bookId) => {
     try {
-      await axios.delete(`${baseURL}/apps/${appId}/books/${bookId}`);
+      const response = await axios.delete(`${baseURL}/apps/${appId}/books/${bookId}`);
+      console.log(response);
       return bookId;
     } catch (error) {
       console.error('Error deleting book:', error);
@@ -20,7 +22,14 @@ export const deleteBookAsync = createAsyncThunk(
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
   try {
     const response = await axios.get(`${baseURL}/apps/${appId}/books`);
-    return response.data;
+    const booksData = response.data;
+
+    const booksWithIds = Object.entries(booksData)
+      .flatMap(([item_id, books]) =>
+        books.map((book) => ({ ...book, item_id }))
+      );
+
+    return booksWithIds;
   } catch (error) {
     console.error('Error getting books:', error);
     throw error;
@@ -28,8 +37,16 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
 });
 
 export const addBookAsync = createAsyncThunk('books/addBook', async (book) => {
+  const { item_id, title, author, category } = book;
+  const payload = {
+    item_id,
+    title,
+    author,
+    category
+  };
   try {
-    const response = await axios.post(`${baseURL}/apps/${appId}/books`, book);
+    const response = await axios.post(`${baseURL}/apps/${appId}/books`, payload);
+    console.log('Book added:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error adding book:', error);
@@ -43,16 +60,14 @@ const booksSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
-      // Convert the object to an array of books
-      const booksArray = Object.values(action.payload).flat();
-      return booksArray;
+      return action.payload;
     });
     builder.addCase(addBookAsync.fulfilled, (state, action) => {
       return [...state, action.payload];
     });
     builder.addCase(deleteBookAsync.fulfilled, (state, action) => {
-      const bookId = action.payload; // Convert to number if the book ID is a string
-      return state.filter((book) => book.id !== bookId);
+      const bookId = action.payload;
+      return state.filter((book) => book.item_id !== bookId);
     });
   },
 });
