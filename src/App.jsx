@@ -23,7 +23,10 @@ const App = () => {
     <Router>
       <Navigation />
       <Routes>
-        <Route path="/" element={<BookList books={books} onDelete={handleDeleteBook} onAddBook={handleAddBook} />} />
+        <Route
+          path="/"
+          element={<BookList books={books} onDelete={handleDeleteBook} onAddBook={handleAddBook} />}
+        />
         <Route path="/categories" element={<Categories />} />
       </Routes>
     </Router>

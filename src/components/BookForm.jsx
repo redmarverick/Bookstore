@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addBook } from '../redux/books/booksSlice';
+import { v4 as uuidv4 } from 'uuid';
+import { addBookAsync } from '../redux/books/booksSlice';
 
 const BookForm = () => {
   const [title, setTitle] = useState('');
@@ -11,7 +12,13 @@ const BookForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title.trim() !== '' && author.trim() !== '' && category.trim() !== '') {
-      dispatch(addBook({ title: title.trim(), author: author.trim(), category: category.trim() }));
+      const newBook = {
+        item_id: uuidv4(), // Generate ID based on the number of books + 1
+        title: title.trim(),
+        author: author.trim(),
+        category: category.trim(),
+      };
+      dispatch(addBookAsync(newBook));
       setTitle('');
       setAuthor('');
       setCategory('');
